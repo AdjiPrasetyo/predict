@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+MLearn | Devnesia
+{% endblock title %}
+
+
+
+{% block header %}
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top d-flex align-items-center">
+  <div class="container d-flex align-items-center">
+
+    <div class="logo me-auto">
+      <!-- <h1 class="text-light"><a href="/"><span>MLearn</span></a></h1> -->
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <a href="/"><img src="{% static 'img/pnl.png' %}" alt="" class="img-fluid"></a>
+    </div>
+
+    <nav class="nav-menu d-none d-lg-block">
+      <ul>
+
+        {% if user.is_authenticated %}
+        <li class="active"><a href="training">Training</a></li>
+        <li><a href="admin/mlr/dataset">Database</a></li>
+
+        <li style="margin-left: 20px;" class="get-started"><a href="{% url 'logout' %}">Logout</a></li>
+
+        {% else %}
+        <li style="margin-left: 20px;" class="get-started"><a href="{% url 'login' %}">Login</a></li>
+        {% endif %}
+
+      </ul>
+    </nav><!-- .nav-menu -->
+
+  </div>
+</header><!-- End Header -->
+
+{% endblock header %}
+
+
+
+{% block content %}
+
+<!-- ======= dataset Section ======= -->
+<section id="data" class="data" style="padding-top: 100px;">
+  <div class="container">
+    {% include 'messages.html' %}
+    <div class="section-title" data-aos="fade-down">
+      <h2>Tabel Dataset</h2>
+    </div>
+    <div class="card shadow mb-1 ">
+      <div class="card-header d-flex justify-content-center py-4">
+        <!-- <h3>Table Data</h3> -->
+      </div>
+
+      <div class="col-xl-12 col-lg-6 col-md-8 col-sm-10 mx-auto text-center p-4" data-aos="fade-up"
+        data-aos-delay="300">
+        <div class="card card-body mt-4">
+
+          <table class="table table-striped table-bordered" style="width:100%" id="mydata">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Bulan</th>
+                <th>Curah Hujan</th>
+                <th>Umur</th>
+                <th>Luas Lahan</th>
+                <th>Jumlah Pokok</th>
+                <th>Jumlah Tandan</th>
+                <th>Rata Berat</th>
+                <th>Hasil Produksi</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              {% for dataset in data %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{dataset.bulan}}</td>
+                <td>{{dataset.curah_hujan}}</td>
+                <td>{{dataset.umur}}</td>
+                <td>{{dataset.luas_lahan}}</td>
+                <td>{{dataset.jumlah_pokok}}</td>
+                <td>{{dataset.jumlah_tandan}}</td>
+                <td>{{dataset.rata_berat}}</td>
+                <td>{{dataset.hasil_produksi}}</td>
+
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <div id="train" class="mt-5 mb-4">
+          <!-- <a style="color: black;" data-bs-toggle="collapse" href="#collapseData" role="button" aria-expanded="false" aria-controls="collapseExample"> Training Model</a> -->
+          <button type="button" class="btn btn-outline-secondary btn-lg" data-bs-toggle="collapse" href="#collapseData"
+            role="button" aria-expanded="false" aria-controls="collapseExample">Training Model</button>
+        </div>
+
+        <div class="collapse" id="collapseData" data-aos="fade-up" data-aos-delay="500">
+          <div class="card">
+            <div class="card-header">
+              Multiple Linear Regression
+            </div>
+            <div class="card-body">
+              <table class="table table-striped table-bordered" style="width:100%" id="mydata">
+                <tr>
+                  <td>a</td>
+                  <td>=</td>
+                  <td>{{const}}</td>
+                </tr>
+                <tr>
+                  <td>b<sub>1</sub></td>
+                  <td>=</td>
+                  <td>{{coef.0.0}}</td>
+                </tr>
+                <tr>
+                  <td>b<sub>2</sub></td>
+                  <td>=</td>
+                  <td>{{coef.0.1}}</td>
+                </tr>
+                <tr>
+                  <td>b<sub>3</sub></td>
+                  <td>=</td>
+                  <td>{{coef.0.2}}</td>
+                </tr>
+                <tr>
+                  <td>b<sub>4</sub></td>
+                  <td>=</td>
+                  <td>{{coef.0.3}}</td>
+                </tr>
+                <tr>
+                  <td>b<sub>5</sub></td>
+                  <td>=</td>
+                  <td>{{coef.0.4}}</td>
+                </tr>
+                <tr>
+                  <td>b<sub>6</sub></td>
+                  <td>=</td>
+                  <td>{{coef.0.5}}</td>
+                </tr>
+                <tr>
+                  <td>b<sub>7</sub></td>
+                  <td>=</td>
+                  <td>{{coef.0.6}}</td>
+                </tr>
+                <!-- <tr>
+                            <td>MAD</td>
+                            <td>=</td>
+                            <td>{{mad}}</td>
+                          </tr> -->
+                <tr>
+                  <td>MAPE</td>
+                  <td>=</td>
+                  <td>{{mape}}</td>
+                </tr>
+                <tr>
+                  <td>Score</td>
+                  <td>=</td>
+                  <td>{{score}}</td>
+                </tr>
+              </table>
+
+              <H4 class="mt-4">Y = a + b<sub>1</sub>x<sub>1</sub> + b<sub>2</sub>x<sub>2</sub> +
+                b<sub>3</sub>x<sub>3</sub> + b<sub>4</sub>x<sub>4</sub> + b<sub>5</sub>x<sub>5</sub> +
+                b<sub>6</sub>x<sub>6</sub> + b<sub>7</sub>x<sub>7</sub> </H4>
+            </div>
+          </div>
+          <div style="border-radius: 22.5px; padding: 8px 25px;" class="btn btn-secondary mt-5 mb-4 btn-lg">
+            <a style="color:white;" href="multiple"> Prediction</a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- End dataset Section -->
+{% endblock content %}
+
+
+{% block footer %}
+<!-- ======= Footer ======= -->
+<footer id="footer">
+  <div class="container">
+    <div class="row d-flex align-items-center">
+      <div class="col-lg-6 text-lg-left text-center">
+        <div class="copyright">
+          &copy; Copyright <strong>MLearn</strong>. All Rights Reserved
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <nav class="footer-links text-lg-right text-center pt-2 pt-lg-0">
+          <!-- <a href="#intro" class="scrollto">H</a>
+              <a href="admin/" class="scrollto">Database</a> -->
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</footer><!-- End Footer -->
+<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+{% endblock footer %}

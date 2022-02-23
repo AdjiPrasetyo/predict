@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+MLearn | Devnesia
+{% endblock title %}
+
+
+
+{% block header %}
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top d-flex align-items-center">
+  <div class="container d-flex align-items-center">
+
+    <div class="logo me-auto">
+      <!-- <h1 class="text-light"><a href="#"><span>MLearn</span></a></h1> -->
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <a href="/"><img src="{% static 'img/pnl.png' %}" alt="" class="img-fluid"></a>
+    </div>
+
+    <nav class="nav-menu d-none d-lg-block">
+      <ul>
+        <li class="get-started"><a href="/">Back</a></li>
+      </ul>
+    </nav><!-- .nav-menu -->
+
+  </div>
+</header><!-- End Header -->
+
+{% endblock header %}
+
+
+
+{% block content %}
+<!-- ======= Multiples Section ======= -->
+<section id="multiple" class="multiple" style="margin-top: 100px;">
+  <div class="container">
+    <div class="card shadow col-lg-6 mx-auto">
+      <div class="section-title card-header py-3" data-aos="fade-down">
+        <h3>Multiple Linear Regression</h3>
+      </div>
+      <div class="card-body">
+
+        <div class=" col-xl-10 col-lg-6 col-md-8 col-sm-10 mx-auto mt-4 " data-aos="fade-up" data-aos-delay="300">
+          <form method="POST" action="process">
+            {% csrf_token %}
+
+            <div class="form-group row mt-1" data-aos="zoom-in" data-aos-delay="150">
+              <label class="col-md-2 text-center  col-form-label"><b>X1</b></label>
+              <div class="col-md-8">
+                <select class="form-select" name="X1" required>
+                  <option selected>Pilih Bulan</option>
+                  <option value="1">Januari</option>
+                  <option value="2">Februari</option>
+                  <option value="3">Maret</option>
+                  <option value="4">April</option>
+                  <option value="5">Mei</option>
+                  <option value="6">Juni</option>
+                  <option value="7">Juli</option>
+                  <option value="8">Agustus</option>
+                  <option value="9">September</option>
+                  <option value="10">Oktober</option>
+                  <option value="11">November</option>
+                  <option value="12">Desember</option>
+                </select>
+                <!-- <input type="text" class="form-control" name="X1" value="" placeholder="Bulan" required> -->
+              </div>
+              <label class="col-md-2  col-form-label"><b></b></label>
+            </div>
+
+            <div class="form-group row mt-2" data-aos="zoom-in" data-aos-delay="150">
+              <label class="col-md-2 text-center  col-form-label"><b>X2</b></label>
+              <div class="col-md-8">
+                <select class="form-select" name="X2" required>
+                  <option selected>Pilih Curah Hujan</option>
+                  <option value="10">Optimal</option>
+                  <option value="0">Normal</option>
+                  <option value="-10">Buruk</option>
+                </select>
+                <!-- <input type="text" class="form-control" name="X2" value="" placeholder="Curah Hujan" required> -->
+              </div>
+              <label class="col-md-2  col-form-label"><b></b></label>
+            </div>
+
+            <div class="form-group row mt-2" data-aos="zoom-in" data-aos-delay="150">
+              <label class="col-md-2 text-center  col-form-label"><b>X3</b></label>
+              <div class="col-md-8">
+                <input type="number" class="form-control" name="X3" value="" placeholder="Umur" required>
+              </div>
+              <label class="col-md-2   col-form-label"><b>(Tahun)</b></label>
+            </div>
+
+            <div class="form-group row mt-2" data-aos="zoom-in" data-aos-delay="150">
+              <label class="col-md-2 text-center  col-form-label"><b>X4</b></label>
+              <div class="col-md-8">
+                <input type="number" step="0.01" class="form-control" name="X4" value="" placeholder="Luas Lahan"
+                  required>
+              </div>
+              <label class="col-md-2   col-form-label"><b>(Ha)</b></label>
+            </div>
+
+            <div class="form-group row mt-2" data-aos="zoom-in" data-aos-delay="300">
+              <label class="col-md-2 text-center  col-form-label"><b>X5</b></label>
+              <div class="col-md-8">
+                <input type="number" class="form-control" name="X5" value="" placeholder="Jumlah Pokok" required>
+              </div>
+              <label class="col-md-2  col-form-label"><b>(Pohon)</b></label>
+            </div>
+
+            <div class="form-group row mt-2" data-aos="zoom-in" data-aos-delay="450">
+              <label class="col-md-2 text-center  col-form-label"><b>X6</b></label>
+              <div class="col-md-8">
+                <input type="number" class="form-control" name="X6" value="" placeholder="Jumlah Tandan" required>
+              </div>
+              <label class="col-md-2  col-form-label"><b>(Buah)</b></label>
+            </div>
+
+            <div class="form-group row mt-2" data-aos="zoom-in" data-aos-delay="600">
+              <label class="col-md-2 text-center  col-form-label"><b>X7</b></label>
+              <div class="col-md-8">
+                <input type="number" step="0.01" class="form-control" name="X7" value="" placeholder="Rerata Berat"
+                  required>
+              </div>
+              <label class="col-md-2  col-form-label"><b>(Kg)</b></label>
+            </div>
+
+            <div class="form-group mt-5 text-center " data-aos="fade-up" data-aos-delay="600">
+              <button style="border-radius: 22.5px; padding: 8px 25px; " class="btn btn-secondary mt-2 mb-5 btn-md "
+                type="submit">Process</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section><!-- End Multiples Section -->
+{% endblock content %}
+
+
+{% block footer %}
+<!-- ======= Footer ======= -->
+<footer id="footer">
+  <div class="container">
+    <div class="row d-flex align-items-center">
+      <div class="col-lg-6 text-lg-left text-center">
+        <div class="copyright">
+          &copy; Copyright <strong>MLearn</strong>. All Rights Reserved
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <nav class="footer-links text-lg-right text-center pt-2 pt-lg-0">
+
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</footer><!-- End Footer -->
+{% endblock footer %}

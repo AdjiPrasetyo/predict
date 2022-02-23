@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Logout | Devnesia
+{% endblock title %}
+
+
+{% block content %}
+  <!-- ======= Multiples Section ======= -->
+  <section id="login" class="login" style="padding-top: 10%;">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-down">
+        <h2>Apakah Anda Yakin Ingin Logout?</h2>
+      </div>
+      
+        <div class="col-xl-4 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4" data-aos="fade-up" data-aos-delay="0"> 
+          <form method="POST" class="justify-content-center">
+             {% csrf_token %}
+             
+             <div class="form-group mt-2" data-aos="fade-up" data-aos-delay="0">
+                <button style="border-radius: 22.5px; padding: 8px 25px;" class="btn btn-secondary mt-3 btn-lg" > <a style="color: white;" href="/"> Tidak</a></button>
+                <button style="border-radius: 22.5px; padding: 8px 25px;" class="btn btn-secondary mt-3 btn-lg"  type="submit" name="logout">Iya</button>
+            </div> 
+            </form>
+        </div>
+
+    </div>
+  </section><!-- End Multiples Section -->
+     
+{% endblock content %}
+    

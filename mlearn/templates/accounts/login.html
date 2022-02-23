@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Login | Denvesia
+{% endblock title %}
+
+
+{% block content %}
+<!-- ======= Multiples Section ======= -->
+<section id="login" class="login" style="padding-top: 10%;">
+  <div class="container">
+
+    <div class="section-title" data-aos="fade-down">
+      <a href="/"><img src="{% static 'img/pnl.png' %}" alt="" class="img-fluid"
+          style="width: 400px; height: 100px;"></a>
+    </div>
+
+    <div class="col-xl-4 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4" data-aos="fade-up"
+      data-aos-delay="0">
+      {% include 'messages.html' %}
+      <form method="POST" class="justify-content-center">
+        {% csrf_token %}
+
+        <div class="card">
+          <div class="card-body" style="padding: 40px 40px;">
+            <div class="form-group row mt-2" data-aos="zoom-in" data-aos-delay="0">
+              <div class="col-md-12">
+                <input type="text" class="form-control" name="username" value="" placeholder="Username" required>
+              </div>
+            </div>
+
+            <div class="form-group row mt-2" data-aos="zoom-in" data-aos-delay="0">
+              <div class="col-md-12">
+                <input type="password" class="form-control" name="password" value="" placeholder="Password" required>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group mt-2" data-aos="fade-up" data-aos-delay="0">
+          <button style="border-radius: 22.5px; padding: 8px 25px;" class="btn btn-secondary mt-3 btn-lg"
+            type="submit">Login</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</section><!-- End Multiples Section -->
+
+{% endblock content %}

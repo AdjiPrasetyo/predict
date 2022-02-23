@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+MLearn | Devnesia
+{% endblock title %}
+
+
+
+{% block header %}
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top d-flex align-items-center">
+  <div class="container d-flex align-items-center">
+
+    <div class="logo me-auto">
+      <!-- <h1 class="text-light"><a href="#"><span>MLearn</span></a></h1> -->
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <a href="/"><img src="{% static 'img/pnl.png' %}" alt="" class="img-fluid"></a>
+    </div>
+
+    <nav class="nav-menu d-none d-lg-block">
+      <ul>
+
+        {% if user.is_authenticated %}
+        <li><a href="training">Training</a></li>
+        <li><a href="admin/mlr/dataset">Database</a></li>
+
+        <li style="margin-left: 20px;" class="get-started"><a href="{% url 'logout' %}">Logout</a></li>
+
+        {% else %}
+        <li style="margin-left: 20px;" class="get-started"><a href="{% url 'login' %}">Login</a></li>
+        {% endif %}
+
+      </ul>
+    </nav><!-- .nav-menu -->
+
+  </div>
+</header><!-- End Header -->
+
+{% endblock header %}
+
+
+
+{% block content %}
+{% load humanize %}
+<!-- ======= Multiples Section ======= -->
+<section id="multiple" class="multiple" style="padding-top: 100px;">
+  <div class="container">
+
+    <div class="card shadow col-lg-6 mx-auto">
+      <div class="section-title card-header py-3" data-aos="fade-down">
+        <h3>Hasil Perhitungan</h3>
+      </div>
+
+      <div class="card-body">
+
+        <div class="col-xl-10 col-lg-6 col-md-8 col-sm-10 mx-auto mt-4 " data-aos="fade-up" data-aos-delay="300">
+
+
+          <form method="POST" action="update">
+            {% csrf_token %}
+
+            <input type="hidden" class="form-control" name="X1" value="{{temp.X1}}">
+            <input type="hidden" class="form-control" name="X2" value="{{temp.X2}}">
+            <input type="hidden" class="form-control" name="X3" value="{{temp.X3}}">
+            <input type="hidden" class="form-control" name="X4" value="{{temp.X4}}">
+            <input type="hidden" class="form-control" name="X5" value="{{temp.X5}}">
+            <input type="hidden" class="form-control" name="X6" value="{{temp.X6}}">
+            <input type="hidden" class="form-control" name="X7" value="{{temp.X7}}">
+            <input type="hidden" class="form-control" name="Y" value="{{scorePredict}}">
+
+
+            <div class="">
+              <table class="table table-bordered mb-0">
+                <tr>
+                  <td>Bulan</td>
+                  <td>=</td>
+                  <td>
+                    {% if temp.X1 == '1'  %}
+                    Januari
+                    {% elif temp.X1 == '2' %}
+                    Februari
+                    {% elif temp.X1 == '3' %}
+                    Maret
+                    {% elif temp.X1 == '4' %}
+                    April
+                    {% elif temp.X1 == '5' %}
+                    Mei
+                    {% elif temp.X1 == '6' %}
+                    Juni
+                    {% elif temp.X1 == '7' %}
+                    Juli
+                    {% elif temp.X1 == '8' %}
+                    Agustus
+                    {% elif temp.X1 == '9' %}
+                    September
+                    {% elif temp.X1 == '10' %}
+                    Oktober
+                    {% elif temp.X1 == '11' %}
+                    November
+                    {% elif temp.X1 == '12' %}
+                    Desember
+                    {% endif %}
+                  </td>
+                  <td rowspan="2"></td>
+                </tr>
+                <tr>
+                  <td>Curah Hujan</td>
+                  <td>=</td>
+                  <td>
+                    {% if temp.X2 == '10'  %}
+                    Optimal
+                    {% elif temp.X2 == '0' %}
+                    Normal
+                    {% elif temp.X2 == '-10' %}
+                    Buruk
+                    {% endif %}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Umur</td>
+                  <td>=</td>
+                  <td>{{temp.X3 | intcomma}}</td>
+                  <td colspan="2">(Tahun)</td>
+                </tr>
+                <tr>
+                  <td>Luas Lahan</td>
+                  <td>=</td>
+                  <td>{{temp.X4 | intcomma}}</td>
+                  <td colspan="2">(Ha)</td>
+                </tr>
+                <tr>
+                  <td>Jumlah Pokok</td>
+                  <td>=</td>
+                  <td>{{temp.X5 | intcomma}}</td>
+                  <td colspan="2">(Pohon)</td>
+                </tr>
+                <tr>
+                  <td>Jumlah Tandan</td>
+                  <td>=</td>
+                  <td>{{temp.X6 | intcomma}}</td>
+                  <td colspan="2">(Buah)</td>
+                </tr>
+                <tr>
+                  <td>Rata Berat</td>
+                  <td>=</td>
+                  <td>{{temp.X7 | intcomma}}</td>
+                  <td colspan="2">(Kg)</td>
+                </tr>
+              </table>
+
+              <table class="mt-0">
+                <div class="counts mb-3" id="counts">
+                  <div class="content">
+                    <div class="count-box">
+                      <div class="row">
+                        <div class="" data-aos="fade-right" data-aos-delay="400">
+                          <tr>
+                            <td style="font-size: 20px;"> <b>Memperoleh Hasil Sebesar :</b> </td>
+                            <td> <b><span style="font-size: 20px; margin-left: 80px; margin-right: 5px;"
+                                  data-toggle="counter-up">{{scorePredict| intcomma}}</span> </b></td>
+                            <td style="font-size: 20px;"><b>Kg</b></td>
+                          </tr>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+              </table>
+
+            </div>
+
+            <div class="form-group mt-5 mb-5 text-center" data-aos="fade-up" data-aos-delay="500">
+              <a style="border-radius: 22.5px; padding: 8px 25px; margin-right: 30px;"
+                class="btn btn-secondary mt-3 btn-sm" href="multiple">Back</a>
+              <button style="border-radius: 22.5px; padding: 8px 25px;" class="btn btn-secondary mt-3 btn-sm "
+                type="submit">Save</button>
+            </div>
+
+
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section><!-- End Multiples Section -->
+{% endblock content %}
+
+
+{% block footer %}
+<!-- ======= Footer ======= -->
+<footer id="footer">
+  <div class="container">
+    <div class="row d-flex align-items-center">
+      <div class="col-lg-6 text-lg-left text-center">
+        <div class="copyright">
+          &copy; Copyright <strong>MLearn</strong>. All Rights Reserved
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <nav class="footer-links text-lg-right text-center pt-2 pt-lg-0">
+
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</footer><!-- End Footer -->
+{% endblock footer %}
